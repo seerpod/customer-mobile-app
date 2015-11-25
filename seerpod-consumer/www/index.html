@@ -15,29 +15,37 @@
         <link href="//code.ionicframework.com/nightly/css/ionic.css" rel="stylesheet"/>
         <!--link href="index.css" rel="stylesheet"/-->
         <script src="//code.ionicframework.com/nightly/js/ionic.bundle.js"></script>
+        <script src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false"></script>
         <!--script src="app.js"></script-->
       </head>
  
       <body>
-        <ion-tabs class="tabs-stable">
-          <ion-tab icon="ion-search" ui-sref="search">
+        <ion-tabs class="tabs-stable tabs-icon-top">
+          <ion-tab title="Search" icon="ion-search" ui-sref="search">
             <ion-nav-view name="search"></ion-nav-view>
           </ion-tab>
-          <ion-tab icon="ion-heart" ui-sref="favorites">
+          <ion-tab title="Favorites" icon="ion-heart" ui-sref="favorites">
             <ion-nav-view name="favorites"></ion-nav-view>
           </ion-tab>
-          <ion-tab icon="ion-gear-a" ui-sref="settings">
+          <ion-tab title="Settings" icon="ion-gear-a" ui-sref="settings">
             <ion-nav-view name="settings"></ion-nav-view>
           </ion-tab>
         </ion-tabs>
         
         <script id="search.html" type="text/ng-template">
           <ion-header-bar class="bar bar-header item-input-inset">
-            <label class="item-input-wrapper">
+            <div class="item-input-wrapper">
               <i class="icon ion-navigate placeholder-icon"></i>
-              <input type="search" placeholder="Search restaurants in your location" ng-model="movie.name" ng-change="searchMovieDB()">
+              <input id="autocomplete" name="user-address" type="search" class="form-control"
+placeholder="Enter your street address" ng-model="store.name" />
+              <!--a href='#' ng-click='searchStoreDB()' class="icon ion-ios-search placeholder-icon"></a-->
+              <button class="button button-clear" ng-click="searchStoreDB()">
+                <i class="icon ion-ios-search placeholder-icon"></i>
+              </button>
+            </div>
+            <!--button class="button button-clear" ng-click="searchStoreDB()">
               <i class="icon ion-ios-search placeholder-icon"></i>
-            </label>
+            </button-->
             <button class="button">
               <i class="icon ion-close-round placeholder-icon"></i>
             </button>
@@ -51,10 +59,12 @@
             <ion-list>
               <div class="list">
 
-                <a ng-repeat="movie in movies" href="#/movie/{{movie.id}}" class="item item-thumbnail-left">
-                  <img ng-src="https://image.tmdb.org/t/p/w92{{movie.poster_path}}" onerror="this.src = 'https://www.ginesisnatural.com/images/no_image.jpg';">
-                  <h2>{{movie.original_title}}</h2>
-                  <h4>{{movie.release_date}}</h4>
+                <a ng-repeat="store in stores" href="#/store/{{store.id}}" class="item item-thumbnail-left">
+                  <img ng-src="{{store.img}}" onerror="this.src = 'https://www.ginesisnatural.com/images/no_image.jpg';">
+                  <h2>{{store.name}}</h2>
+                  <h4>{{store.location}}</h4>
+                  <h5 class="progress-bar-value" style="margin-left:{{store.occupancy_percent}}px;">{{store.occupancy_percent}}% full</h5>
+                  <progress value="{{store.occupancy_percent}}" max="100"></progress>
                 </a>
 
               </div>
@@ -71,18 +81,19 @@
             <div class="list card">
 
               <div class="item item-avatar">
-                <img src="http://files.softicons.com/download/object-icons/movies-icons-by-pinchodesigns/png/32x32/Movie.png">
-                <h2>{{movie.original_title}}</h2>
-                <p>{{movie.release_date}}</p>
+                <img src="http://files.softicons.com/download/object-icons/movies-icons-by-pinchodesigns/png/32x32/movie.png">
+                <h2>{{store.name}}</h2>
+                <p>{{store.location}}</p>
+                <progress value="50" max="100"></progress>
               </div>
 
               <div class="item item-image">
-                <img ng-src="https://image.tmdb.org/t/p/w92{{movie.poster_path}}" width="200px" />
+                <img ng-src="{{store.img}}" width="200px" />
               </div>
 
-              <a class="item" href="#">
-                Average Vote: <strong>{{movie.vote_average}}</strong> (Votes: {{movie.vote_count}})
-              </a>
+              <!--a class="item" href="#">
+                Average Vote: <strong>{{store.vote_average}}</strong> (Votes: {{store.vote_count}})
+              </a-->
 
             </div>
           </ion-content>
@@ -118,5 +129,6 @@
        
     </html>
       <script src="js/index.js"></script>
+      <script src="js/util.js"></script>
   </body>
 </html>
