@@ -6,6 +6,18 @@
   width: 200px;
 }
 
+.float-left {
+    float:left;
+}
+
+.float-right {
+    float:right;
+}
+
+.float-clear {
+    clear:both;
+}
+
 /* progress bar for chrome */
 progress::-webkit-progress-bar {
     background: #EEE;

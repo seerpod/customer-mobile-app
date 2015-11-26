@@ -24,8 +24,8 @@
           <ion-tab title="Search" icon="ion-search" ui-sref="search">
             <ion-nav-view name="search"></ion-nav-view>
           </ion-tab>
-          <ion-tab title="Favorites" icon="ion-heart" ui-sref="favorites">
-            <ion-nav-view name="favorites"></ion-nav-view>
+          <ion-tab title="Nearby Popular" icon="ion-heart" ui-sref="popular">
+            <ion-nav-view name="popular"></ion-nav-view>
           </ion-tab>
           <ion-tab title="Settings" icon="ion-gear-a" ui-sref="settings">
             <ion-nav-view name="settings"></ion-nav-view>
@@ -37,7 +37,7 @@
             <div class="item-input-wrapper">
               <i class="icon ion-navigate placeholder-icon"></i>
               <input id="autocomplete" name="user-address" type="search" class="form-control"
-placeholder="Enter your street address" ng-model="store.name" />
+placeholder="Enter a street address" ng-model="store.name" />
               <!--a href='#' ng-click='searchStoreDB()' class="icon ion-ios-search placeholder-icon"></a-->
               <button class="button button-clear" ng-click="searchStoreDB()">
                 <i class="icon ion-ios-search placeholder-icon"></i>
@@ -58,15 +58,13 @@ placeholder="Enter your street address" ng-model="store.name" />
           <ion-content>
             <ion-list>
               <div class="list">
-
                 <a ng-repeat="store in stores" href="#/store/{{store.id}}" class="item item-thumbnail-left">
                   <img ng-src="{{store.img}}" onerror="this.src = 'https://www.ginesisnatural.com/images/no_image.jpg';">
                   <h2>{{store.name}}</h2>
                   <h4>{{store.location}}</h4>
-                  <h5 class="progress-bar-value" style="margin-left:{{store.occupancy_percent}}px;">{{store.occupancy_percent}}% full</h5>
+                  <h5 class="progress-bar-value" style="margin-left:20px;">{{store.occupancy_percent}}% full</h5>
                   <progress value="{{store.occupancy_percent}}" max="100"></progress>
                 </a>
-
               </div>
             </ion-list>
           </ion-content>
@@ -84,29 +82,30 @@ placeholder="Enter your street address" ng-model="store.name" />
                 <img src="http://files.softicons.com/download/object-icons/movies-icons-by-pinchodesigns/png/32x32/movie.png">
                 <h2>{{store.name}}</h2>
                 <p>{{store.location}}</p>
-                <progress value="50" max="100"></progress>
+                <h5 class="progress-bar-value" style="margin-left:20px;">{{store.occupancy_percent}}% full</h5>
+                <progress value="{{store.occupancy_percent}}" max="100"></progress>
               </div>
 
               <div class="item item-image">
                 <img ng-src="{{store.img}}" width="200px" />
               </div>
 
-              <!--a class="item" href="#">
-                Average Vote: <strong>{{store.vote_average}}</strong> (Votes: {{store.vote_count}})
-              </a-->
-
             </div>
           </ion-content>
         </script>
 
-        <script id="favorites.html" type="text/ng-template">
+        <script id="popular.html" type="text/ng-template">
           <ion-header-bar class="bar bar-header bar-stable">
-            <h1 class="title">Favorite Restaurants</h1>
+            <h1 class="title">Nearby Popular Restaurants</h1>
           </ion-header-bar>
           <ion-content>
-            <div class="list card">
-              <a class="item" href="#">
-                List of favorite restaurants
+            <div class="list">
+              <a ng-repeat="store in stores" href="#/store/{{store.id}}" class="item item-thumbnail-left">
+                <img ng-src="{{store.img}}" onerror="this.src = 'https://www.ginesisnatural.com/images/no_image.jpg';">
+                <h2>{{store.name}}</h2>
+                <h4>{{store.location}}</h4>
+                <h5 class="progress-bar-value" style="margin-left:20px;">{{store.occupancy_percent}}% full</h5>
+                <progress value="{{store.occupancy_percent}}" max="100"></progress>
               </a>
             </div>
           </ion-content>

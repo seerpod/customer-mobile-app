@@ -21,12 +21,12 @@ seerpodApp.config(function($stateProvider, $urlRouterProvider) {
         }
       }
     })
-    .state('favorites', {
-      url: '/favorites',
+    .state('popular', {
+      url: '/popular',
       views: {
-        favorites: {
-          templateUrl: 'favorites.html',
-          controller: 'FavoritesController'
+        popular: {
+          templateUrl: 'popular.html',
+          controller: 'PopularController'
         }
       }
     })
@@ -105,7 +105,6 @@ seerpodApp.controller('SearchController', function($scope, $http, stores) {
   $scope.store = {}
  
   $scope.searchStoreDB = function() {
-
     stores.list($scope.store.name, function(stores) {
       $scope.stores = stores;
     });
@@ -122,10 +121,19 @@ seerpodApp.controller('DetailController', function($scope, $http, $stateParams, 
   });
 });
 
-seerpodApp.controller('FavoritesController', function($scope, $http, $stateParams, stores) {
-  // stores.find($stateParams.storeid, function(store) {
-  //   $scope.store = store;
-  // });
+seerpodApp.controller('PopularController', function($scope, $http, $stateParams, stores) {
+  $scope.store = {}
+ 
+  // modify this code to return nearby restaurants
+  // sorted by yelp rating
+  $scope.searchStoreDB = function() {
+    stores.list($scope.store.name, function(stores) {
+      $scope.stores = stores;
+    });
+ 
+  };
+  
+  $scope.searchStoreDB();
 });
 
 seerpodApp.controller('SettingsController', function($scope, $http, $stateParams, stores) {
