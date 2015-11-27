@@ -1,0 +1,14 @@
+<ion-header-bar class="bar bar-header bar-stable">
+  <h1 class="title">Nearby Popular Restaurants</h1>
+</ion-header-bar>
+<ion-content>
+  <div class="list">
+    <a ng-repeat="store in stores" href="#/store/{{store.id}}" class="item item-thumbnail-left">
+      <img ng-src="{{store.img}}" onerror="this.src = 'https://www.ginesisnatural.com/images/no_image.jpg';">
+      <h2>{{store.name}}</h2>
+      <h4>{{store.location}}</h4>
+      <h5 class="progress-bar-value" style="margin-left:20px;">{{store.occupancy_percent}}% full</h5>
+      <progress value="{{store.occupancy_percent}}" max="100"></progress>
+    </a>
+  </div>
+</ion-content>

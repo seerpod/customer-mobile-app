@@ -1,0 +1,39 @@
+<ion-header-bar class="bar bar-header item-input-inset">
+  <div class="item-input-wrapper">
+    <!--div ng-controller="GeoController"-->
+      <button class="button button-clear" ng-click="getCurrentLocation()">
+        <i class="icon ion-navigate placeholder-icon"></i>
+      </button>
+    <!--/div-->
+    <input id="autocomplete" name="user-address" type="search" class="form-control"
+placeholder="Enter a street address" ng-model="store.name" />
+    <!--a href='#' ng-click='searchStoreDB()' class="icon ion-ios-search placeholder-icon"></a-->
+    <button class="button button-clear" ng-click="searchStoreDB()">
+      <i class="icon ion-ios-search placeholder-icon"></i>
+    </button>
+  </div>
+  <!--button class="button button-clear" ng-click="searchStoreDB()">
+    <i class="icon ion-ios-search placeholder-icon"></i>
+  </button-->
+  <button class="button">
+    <i class="icon ion-close-round placeholder-icon"></i>
+  </button>
+  <span></span>
+  <button class="button" ng-click="openModal()">
+    <i class="icon ion-funnel placeholder-icon"></i>
+  </button>
+</ion-header-bar>
+
+<ion-content>
+  <ion-list>
+    <div class="list">
+      <a ng-repeat="store in stores" href="#/store/{{store.id}}" class="item item-thumbnail-left">
+        <img ng-src="{{store.img}}" onerror="this.src = 'https://www.ginesisnatural.com/images/no_image.jpg';">
+        <h2>{{store.name}}</h2>
+        <h4>{{store.location}}</h4>
+        <h5 class="progress-bar-value" style="margin-left:20px;">{{store.occupancy_percent}}% full</h5>
+        <progress value="{{store.occupancy_percent}}" max="100"></progress>
+      </a>
+    </div>
+  </ion-list>
+</ion-content>

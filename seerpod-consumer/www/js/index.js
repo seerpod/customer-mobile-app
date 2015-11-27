@@ -7,7 +7,7 @@ seerpodApp.config(function($stateProvider, $urlRouterProvider) {
       url: '/',
       views: {
         search: {
-          templateUrl: 'search.html',
+          templateUrl: 'templates/search.html',
           controller: 'SearchController'
         }
       }
@@ -16,7 +16,7 @@ seerpodApp.config(function($stateProvider, $urlRouterProvider) {
       url: '/store/:storeid',
       views: {
         search: {
-          templateUrl: 'detail.html',
+          templateUrl: 'templates/detail.html',
           controller: 'DetailController'
         }
       }
@@ -25,7 +25,7 @@ seerpodApp.config(function($stateProvider, $urlRouterProvider) {
       url: '/popular',
       views: {
         popular: {
-          templateUrl: 'popular.html',
+          templateUrl: 'templates/popular.html',
           controller: 'PopularController'
         }
       }
@@ -34,7 +34,7 @@ seerpodApp.config(function($stateProvider, $urlRouterProvider) {
       url: '/settings',
       views: {
         settings: {
-          templateUrl: 'settings.html',
+          templateUrl: 'templates/settings.html',
           controller: 'SettingsController'
         }
       }
@@ -44,7 +44,7 @@ seerpodApp.config(function($stateProvider, $urlRouterProvider) {
  
 });
 
-seerpodApp.factory('stores', function($http) {
+seerpodApp.factory('storesService', function($http) {
   var cachedData;
   
   function getData(storename, callback) {
@@ -64,7 +64,7 @@ seerpodApp.factory('stores', function($http) {
   //     callback(data.results);
   //   });
   // }
- 
+  
   return {
     list: getData,
     find: function(name, callback) {
@@ -100,34 +100,103 @@ function dummyData() {
   return restaurants;
 }
  
-seerpodApp.controller('SearchController', function($scope, $http, stores) {
+seerpodApp.controller('SearchController', function($scope, $http, $ionicModal, storesService) {
  
   $scope.store = {}
  
   $scope.searchStoreDB = function() {
-    stores.list($scope.store.name, function(stores) {
+    storesService.list($scope.store.name, function(stores) {
       $scope.stores = stores;
     });
- 
   };
-  
+
   $scope.searchStoreDB();
+
+  // USE IONIC MODAL FOR FILTER BUTTON
+  $ionicModal.fromTemplateUrl('templates/search-filter.html', {
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function(modal) {
+    $scope.modal = modal;
+  });
+  $scope.openModal = function() {
+    $scope.modal.show();
+  };
+  $scope.closeModal = function() {
+    $scope.modal.hide();
+  };
+  //Cleanup the modal when we're done with it!
+  $scope.$on('$destroy', function() {
+    $scope.modal.remove();
+  });
+  // Execute action on hide modal
+  $scope.$on('modal.hidden', function() {
+    // Execute action
+  });
+  // Execute action on remove modal
+  $scope.$on('modal.removed', function() {
+    // Execute action
+  });
   
 });
+
+// seerpodApp.controller('GeoController', function($scope, $cordovaGeolocation) {
+
+//   var posOptions = {timeout: 10000, enableHighAccuracy: false};
+//   $scope.getCurrentLocation = $cordovaGeolocation
+//     .getCurrentPosition(posOptions)
+//     .then(function (position) {
+//       var latitude  = position.coords.latitude
+//       var longitude = position.coords.longitude
+//       console.log("lag long: " + latitude + " " + longitude);
+//       $scope.latitude = latitude;
+//       $scope.longitude = longitude;
+//     }, function(err) {
+//       console.log("error: " + err);
+//     });
+
+
+//   var watchOptions = {
+//     timeout : 3000,
+//     enableHighAccuracy: false // may cause errors if true
+//   };
+
+//   var watch = $cordovaGeolocation.watchPosition(watchOptions);
+//   watch.then(
+//     null,
+//     function(err) {
+//       // error
+//     },
+//     function(position) {
+//       var lat  = position.coords.latitude
+//       var long = position.coords.longitude
+//   });
+
+
+//   watch.clearWatch();
+//   // OR
+//   $cordovaGeolocation.clearWatch(watch)
+//     .then(function(result) {
+//       // success
+//       }, function (error) {
+//       // error
+//     });
+// });
+
  
-seerpodApp.controller('DetailController', function($scope, $http, $stateParams, stores) {
-  stores.find($stateParams.storeid, function(store) {
+seerpodApp.controller('DetailController', function($scope, $http, $stateParams, storesService) {
+  storesService.find($stateParams.storeid, function(store) {
     $scope.store = store;
   });
 });
 
-seerpodApp.controller('PopularController', function($scope, $http, $stateParams, stores) {
+seerpodApp.controller('PopularController', function($scope, $http, $stateParams, storesService) {
   $scope.store = {}
  
   // modify this code to return nearby restaurants
   // sorted by yelp rating
   $scope.searchStoreDB = function() {
-    stores.list($scope.store.name, function(stores) {
+    storesService.list($scope.store.name, function(stores) {
       $scope.stores = stores;
     });
  
@@ -136,7 +205,7 @@ seerpodApp.controller('PopularController', function($scope, $http, $stateParams,
   $scope.searchStoreDB();
 });
 
-seerpodApp.controller('SettingsController', function($scope, $http, $stateParams, stores) {
+seerpodApp.controller('SettingsController', function($scope, $http, $stateParams, storesService) {
   // stores.find($stateParams.storeid, function(store) {
   //   $scope.store = store;
   // });
