@@ -1,10 +1,8 @@
 <ion-header-bar class="bar bar-header item-input-inset">
   <div class="item-input-wrapper">
-    <!--div ng-controller="GeoController"-->
-      <button class="button button-clear" ng-click="getCurrentLocation()">
-        <i class="icon ion-navigate placeholder-icon"></i>
-      </button>
-    <!--/div-->
+    <button class="button button-clear" ng-click="currentLocation()">
+      <i class="icon ion-navigate placeholder-icon"></i>
+    </button>
     <input id="autocomplete" name="user-address" type="search" class="form-control"
 placeholder="Enter a street address" ng-model="store.name" />
     <!--a href='#' ng-click='searchStoreDB()' class="icon ion-ios-search placeholder-icon"></a-->

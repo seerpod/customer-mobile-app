@@ -100,7 +100,7 @@ function dummyData() {
   return restaurants;
 }
  
-seerpodApp.controller('SearchController', function($scope, $http, $ionicModal, storesService) {
+seerpodApp.controller('SearchController', function($scope, $http, $ionicModal, $ionicLoading, storesService) {
  
   $scope.store = {}
  
@@ -112,7 +112,22 @@ seerpodApp.controller('SearchController', function($scope, $http, $ionicModal, s
 
   $scope.searchStoreDB();
 
-  // USE IONIC MODAL FOR FILTER BUTTON
+  google.maps.event.addDomListener(window, 'load', initialize);
+  $scope.currentLocation = function() {
+    $scope.loading = $ionicLoading.show({
+      content: 'Getting current location...',
+      showBackdrop: false
+    });
+
+    navigator.geolocation.getCurrentPosition(function(pos) {
+      //$scope.map.setCenter(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
+      console.log("lat long: " + pos.coords.latitude + " " + pos.coords.longitude);
+      $scope.loading.hide();
+    }, function(error) {
+      alert('Unable to get location: ' + error.message);
+    });
+  };
+
   $ionicModal.fromTemplateUrl('templates/search-filter.html', {
     scope: $scope,
     animation: 'slide-in-up'
@@ -143,7 +158,7 @@ seerpodApp.controller('SearchController', function($scope, $http, $ionicModal, s
 // seerpodApp.controller('GeoController', function($scope, $cordovaGeolocation) {
 
 //   var posOptions = {timeout: 10000, enableHighAccuracy: false};
-//   $scope.getCurrentLocation = $cordovaGeolocation
+//   $cordovaGeolocation
 //     .getCurrentPosition(posOptions)
 //     .then(function (position) {
 //       var latitude  = position.coords.latitude
@@ -183,7 +198,6 @@ seerpodApp.controller('SearchController', function($scope, $http, $ionicModal, s
 //     });
 // });
 
- 
 seerpodApp.controller('DetailController', function($scope, $http, $stateParams, storesService) {
   storesService.find($stateParams.storeid, function(store) {
     $scope.store = store;
