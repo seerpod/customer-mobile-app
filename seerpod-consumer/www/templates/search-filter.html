@@ -1,8 +1,65 @@
 <ion-modal-view>
 	<ion-header-bar>
-	  <h1 class="title">Filter</h1>
+	    <button class="button button-clear" ng-click="closeModal()">
+            <h5>Cancel</h5>
+        </button>
+	    <h1 class="title">Filter</h1>
+	    <button class="button button-clear" ng-click="filteredSearchStoreDb()">
+          <h5>Search</h5>
+        </button>
 	</ion-header-bar>
+  
 	<ion-content>
-	  Filtering options come here
+	  <ion-list>
+	    <ion-item class="item-input item-select">
+	        <div class="input-label">
+		      Distance (in miles)
+		    </div>
+            <select>
+		      <option selected>&lt; 0.5</option>
+		      <option>0.5 - 1</option>
+		      <option>1 - 2</option>
+		      <option>2 - 3</option>
+		      <option>3 - 4</option>
+		      <option>4 - 5</option>
+		    </select>
+	    </ion-item>
+
+	    <ion-item class="item-input item-select">
+	        <div class="input-label">
+		      Cuisine
+		    </div>
+            <select>
+		      <option selected>Indian</option>
+		      <option>Mexican</option>
+		      <option>Italian</option>
+		      <option>Vietnamese</option>
+		      <option>Sandwiches</option>
+		      <option>Pizza</option>
+		    </select>
+	    </ion-item>
+
+	    <ion-item class="item-input item-select">
+	        <div class="input-label">
+		      Sort By
+		    </div>
+            <select>
+		      <option selected>Customer Count</option>
+		      <option>Best Match</option>
+		      <option>Distance</option>
+		      <option>Rating</option>
+		    </select>
+	    </ion-item>
+
+	    <ion-item class="item-input item-select">
+	        <div class="input-label">
+		      Open at
+		    </div>
+            <select>
+		      <option selected>Now</option>
+		      <option>Other date time options</option>
+		    </select>
+	    </ion-item>
+	</ion-list>
 	</ion-content>
 </ion-modal-view>

@@ -99,7 +99,7 @@ function dummyData() {
 
   return restaurants;
 }
- 
+  
 seerpodApp.controller('SearchController', function($scope, $http, $ionicModal, $ionicLoading, storesService) {
  
   $scope.store = {}
@@ -140,6 +140,12 @@ seerpodApp.controller('SearchController', function($scope, $http, $ionicModal, $
   $scope.closeModal = function() {
     $scope.modal.hide();
   };
+  $scope.filteredSearchStoreDb = function() {
+    // not working
+    alert("in filtered search");
+    $scope.searchStoreDB();
+    $scope.closeModal();
+  }
   //Cleanup the modal when we're done with it!
   $scope.$on('$destroy', function() {
     $scope.modal.remove();
@@ -219,8 +225,8 @@ seerpodApp.controller('PopularController', function($scope, $http, $stateParams,
   $scope.searchStoreDB();
 });
 
-seerpodApp.controller('SettingsController', function($scope, $http, $stateParams, storesService) {
-  // stores.find($stateParams.storeid, function(store) {
-  //   $scope.store = store;
-  // });
-});
+// seerpodApp.controller('SettingsController', function($scope, $http, $stateParams, storesService) {
+//   // stores.find($stateParams.storeid, function(store) {
+//   //   $scope.store = store;
+//   // });
+// });
