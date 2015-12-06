@@ -3,17 +3,17 @@
     <button class="button button-clear" ng-click="currentLocation()">
       <i class="icon ion-navigate placeholder-icon"></i>
     </button>
-    <input id="autocomplete" name="user-address" type="search" class="form-control"
+    <input id="autocomplete" name="user-address" type="search" autofocus class="form-control"
 placeholder="Enter a street address" ng-model="store.name" />
-    <!--a href='#' ng-click='searchStoreDB()' class="icon ion-ios-search placeholder-icon"></a-->
-    <button class="button button-clear" ng-click="searchStoreDB()">
+    <!--a href='#' ng-click='searchStoreDb()' class="icon ion-ios-search placeholder-icon"></a-->
+    <button class="button button-clear" ng-click="searchStoreDb()">
       <i class="icon ion-ios-search placeholder-icon"></i>
     </button>
   </div>
-  <!--button class="button button-clear" ng-click="searchStoreDB()">
+  <!--button class="button button-clear" ng-click="searchStoreDb()">
     <i class="icon ion-ios-search placeholder-icon"></i>
   </button-->
-  <button class="button">
+  <button class="button" ng-click="clearSearchBox()">
     <i class="icon ion-close-round placeholder-icon"></i>
   </button>
   <span></span>

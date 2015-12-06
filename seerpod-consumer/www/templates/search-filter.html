@@ -15,7 +15,7 @@
 	        <div class="input-label">
 		      Distance (in miles)
 		    </div>
-            <select>
+            <select ng-model="filterParam.distance">
 		      <option selected>&lt; 0.5</option>
 		      <option>0.5 - 1</option>
 		      <option>1 - 2</option>
@@ -29,7 +29,7 @@
 	        <div class="input-label">
 		      Cuisine
 		    </div>
-            <select>
+            <select ng-model="filterParam.cuisine">
 		      <option selected>Indian</option>
 		      <option>Mexican</option>
 		      <option>Italian</option>
@@ -43,7 +43,7 @@
 	        <div class="input-label">
 		      Sort By
 		    </div>
-            <select>
+            <select ng-model="filterParam.sortBy">
 		      <option selected>Customer Count</option>
 		      <option>Best Match</option>
 		      <option>Distance</option>
@@ -55,7 +55,7 @@
 	        <div class="input-label">
 		      Open at
 		    </div>
-            <select>
+            <select ng-model="filterParam.openAt">
 		      <option selected>Now</option>
 		      <option>Other date time options</option>
 		    </select>

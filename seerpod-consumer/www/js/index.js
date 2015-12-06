@@ -47,8 +47,9 @@ seerpodApp.config(function($stateProvider, $urlRouterProvider) {
 seerpodApp.factory('storesService', function($http) {
   var cachedData;
   
-  function getData(storename, callback) {
+  function getData(storename, filterParams, callback) {
     console.log("getData called");
+    console.log("filterParams: " + filterParams);
     cachedData = dummyData();
     callback(cachedData);
   }
@@ -103,14 +104,15 @@ function dummyData() {
 seerpodApp.controller('SearchController', function($scope, $http, $ionicModal, $ionicLoading, storesService) {
  
   $scope.store = {}
+  $scope.filterParam = {}
  
-  $scope.searchStoreDB = function() {
-    storesService.list($scope.store.name, function(stores) {
+  $scope.searchStoreDb = function() {
+    storesService.list($scope.store.name, $scope.filterParam, function(stores) {
       $scope.stores = stores;
     });
   };
 
-  $scope.searchStoreDB();
+  $scope.searchStoreDb();
 
   google.maps.event.addDomListener(window, 'load', initialize);
   $scope.currentLocation = function() {
@@ -120,12 +122,32 @@ seerpodApp.controller('SearchController', function($scope, $http, $ionicModal, $
     });
 
     navigator.geolocation.getCurrentPosition(function(pos) {
-      //$scope.map.setCenter(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
-      console.log("lat long: " + pos.coords.latitude + " " + pos.coords.longitude);
+      var geocoder = new google.maps.Geocoder;
+      var latlng = {lat: parseFloat(pos.coords.latitude), lng: parseFloat(pos.coords.longitude)};
+        geocoder.geocode({'location': latlng}, function(results, status) {
+        if (status === google.maps.GeocoderStatus.OK) {
+          if (results[0]) {
+            $scope.currentAddress = results[0].formatted_address;
+            document.getElementById("autocomplete").value = results[0].formatted_address;
+          } else {
+            window.alert('No results found');
+            $scope.loading.hide();
+          }
+        } else {
+          window.alert('Geocoder failed due to: ' + status);
+          $scope.loading.hide();
+        }
+      });
+
       $scope.loading.hide();
     }, function(error) {
       alert('Unable to get location: ' + error.message);
+      $scope.loading.hide();
     });
+  };
+
+  $scope.clearSearchBox = function() {
+    document.getElementById("autocomplete").value = "";
   };
 
   $ionicModal.fromTemplateUrl('templates/search-filter.html', {
@@ -141,10 +163,8 @@ seerpodApp.controller('SearchController', function($scope, $http, $ionicModal, $
     $scope.modal.hide();
   };
   $scope.filteredSearchStoreDb = function() {
-    // not working
-    alert("in filtered search");
-    $scope.searchStoreDB();
     $scope.closeModal();
+    $scope.searchStoreDb($scope.filterParam);
   }
   //Cleanup the modal when we're done with it!
   $scope.$on('$destroy', function() {
@@ -161,49 +181,6 @@ seerpodApp.controller('SearchController', function($scope, $http, $ionicModal, $
   
 });
 
-// seerpodApp.controller('GeoController', function($scope, $cordovaGeolocation) {
-
-//   var posOptions = {timeout: 10000, enableHighAccuracy: false};
-//   $cordovaGeolocation
-//     .getCurrentPosition(posOptions)
-//     .then(function (position) {
-//       var latitude  = position.coords.latitude
-//       var longitude = position.coords.longitude
-//       console.log("lag long: " + latitude + " " + longitude);
-//       $scope.latitude = latitude;
-//       $scope.longitude = longitude;
-//     }, function(err) {
-//       console.log("error: " + err);
-//     });
-
-
-//   var watchOptions = {
-//     timeout : 3000,
-//     enableHighAccuracy: false // may cause errors if true
-//   };
-
-//   var watch = $cordovaGeolocation.watchPosition(watchOptions);
-//   watch.then(
-//     null,
-//     function(err) {
-//       // error
-//     },
-//     function(position) {
-//       var lat  = position.coords.latitude
-//       var long = position.coords.longitude
-//   });
-
-
-//   watch.clearWatch();
-//   // OR
-//   $cordovaGeolocation.clearWatch(watch)
-//     .then(function(result) {
-//       // success
-//       }, function (error) {
-//       // error
-//     });
-// });
-
 seerpodApp.controller('DetailController', function($scope, $http, $stateParams, storesService) {
   storesService.find($stateParams.storeid, function(store) {
     $scope.store = store;
@@ -215,8 +192,8 @@ seerpodApp.controller('PopularController', function($scope, $http, $stateParams,
  
   // modify this code to return nearby restaurants
   // sorted by yelp rating
-  $scope.searchStoreDB = function() {
-    storesService.list($scope.store.name, function(stores) {
+  $scope.searchStoreDb = function() {
+    storesService.list($scope.store.name, $scope.filterParam, function(stores) {
       $scope.stores = stores;
     });
  
@@ -224,9 +201,3 @@ seerpodApp.controller('PopularController', function($scope, $http, $stateParams,
   
   $scope.searchStoreDB();
 });
-
-// seerpodApp.controller('SettingsController', function($scope, $http, $stateParams, storesService) {
-//   // stores.find($stateParams.storeid, function(store) {
-//   //   $scope.store = store;
-//   // });
-// });
