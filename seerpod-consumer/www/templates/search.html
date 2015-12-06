@@ -25,6 +25,9 @@ placeholder="Enter a street address" ng-model="store.name" />
 <ion-content>
   <ion-list>
     <div class="list">
+      <div class="item item-divider" ng-if="nearbyPopularSearch">
+        <h4>Showing nearby popular restaurants</h4>
+      </div>
       <a ng-repeat="store in stores" href="#/store/{{store.id}}" class="item item-thumbnail-left">
         <img ng-src="{{store.img}}" onerror="this.src = 'https://www.ginesisnatural.com/images/no_image.jpg';">
         <h2>{{store.name}}</h2>

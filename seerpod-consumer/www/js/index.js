@@ -49,7 +49,6 @@ seerpodApp.factory('storesService', function($http) {
   
   function getData(storename, filterParams, callback) {
     console.log("getData called");
-    console.log("filterParams: " + filterParams);
     cachedData = dummyData();
     callback(cachedData);
   }
@@ -105,13 +104,20 @@ seerpodApp.controller('SearchController', function($scope, $http, $ionicModal, $
  
   $scope.store = {}
   $scope.filterParam = {}
+  $scope.nearbyPopularSearch = true;
  
   $scope.searchStoreDb = function() {
+    if ($scope.store.name && $scope.store.name != '') {
+      $scope.nearbyPopularSearch = false;
+    } else {
+      $scope.nearbyPopularSearch = true;
+    }
     storesService.list($scope.store.name, $scope.filterParam, function(stores) {
       $scope.stores = stores;
     });
   };
 
+  // home page of the app
   $scope.searchStoreDb();
 
   google.maps.event.addDomListener(window, 'load', initialize);
@@ -148,6 +154,8 @@ seerpodApp.controller('SearchController', function($scope, $http, $ionicModal, $
 
   $scope.clearSearchBox = function() {
     document.getElementById("autocomplete").value = "";
+    $scope.store = {};
+    $scope.filterParam = {};
   };
 
   $ionicModal.fromTemplateUrl('templates/search-filter.html', {
