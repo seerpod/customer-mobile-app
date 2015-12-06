@@ -9,18 +9,20 @@
   7. First page needs to have some pre-existing listings. Determine them (nearby popular?, or just nearby?)
   8. Implement infinite scroll.
   9. Make search/currentLocation/filter/cancel icons smaller.
+  10. Had to install gulp and setup sass to make it work. See: http://learn.ionicframework.com/formulas/working-with-sass/
 
   TODO:
   1. Connect to Yelp Api and fetch rating info
   2. Implement the filter modal
   3. Push notifications: https://www.airpair.com/ionic-framework/posts/push-notifications-using-ionic-framework
    and https://github.com/ccoenraets/ioconf/blob/master/static/js/push.js. Settings page has the setting for push notifications, actually implement the logic to send notifications.
+  4. Google Map autocomplete not selecting address on tap in iphone
+  5. Change color of navigation icon to green on tap.
 -->
 <html >
   <head>
     <meta charset="UTF-8">
     <title>Seerpod</title>
-        <link rel="stylesheet" href="css/style.css">
   </head>
 
   <body>
@@ -29,8 +31,8 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width" />
         <title>Seerpod</title>
-        <link href="lib/ionic/css/ionic.css" rel="stylesheet"/>
         <!--link href="index.css" rel="stylesheet"/-->
+        <link href="css/ionic.app.css" rel="stylesheet">
         <script src="lib/ionic/js/ionic.bundle.js"></script>
         <!-- google maps javascript -->
         <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyB16sGmIekuGIvYOfNoW9T44377IU2d2Es&libraries=places&sensor=false"></script>
@@ -38,7 +40,7 @@
       </head>
  
       <body>
-        <ion-tabs class="tabs-stable tabs-icon-top">
+        <ion-tabs class="tabs-positive tabs-icon-top">
           <ion-tab title="Search" icon="ion-search" ui-sref="search">
             <ion-nav-view name="search"></ion-nav-view>
           </ion-tab>

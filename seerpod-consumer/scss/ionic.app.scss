@@ -15,9 +15,114 @@ $royal:                           #886aea !default;
 $dark:                            #444 !default;
 */
 
+// Overrides for colors
+$positive:                        #00b383 !default;
+
 // The path for our ionicons font files, relative to the built CSS in www/css
 $ionicons-font-path: "../lib/ionic/fonts" !default;
 
 // Include all of Ionic
 @import "www/lib/ionic/scss/ionic";
+
+// variables
+$positive-lighter:                  #00cc96;
+$positive-text:                     #e5fff8;
+
+.positive-lighter {
+    background-color: $positive-lighter;
+}
+
+.positive-text {
+    color: $positive-text;
+}
+
+.icon-large::before {
+	font-size: large;
+}
+
+.icon-large::after {
+	font-size: large;
+}
+
+.icon-small::before {
+	font-size: small;
+}
+
+.icon-small::after {
+	font-size: small;
+}
+
+.icon-color {
+	color: #fff;
+}
+
+.item-image {
+  background: #000;
+}
+ 
+.item-image img:first-child, .item-image .list-img {
+  width: 200px;
+}
+
+.float-left {
+    float:left;
+}
+
+.float-right {
+    float:right;
+}
+
+.float-clear {
+    clear:both;
+}
+
+/* progress bar for chrome */
+progress::-webkit-progress-bar {
+    background: #EEE;
+    box-shadow: 0 2px 3px rgba(0,0,0,0.2) inset;
+    border-radius: 3px;
+}
+
+progress::-webkit-progress-value {
+    background-color: #3498DB;
+    border-radius: 3px;
+    background-image:
+        -webkit-linear-gradient(-45deg, 
+                           transparent 20%, rgba(0, 0, 0, .1) 33%, 
+                           rgba(0,0, 0, .1) 66%, transparent 66%),
+        -webkit-linear-gradient(top, 
+                           rgba(255, 255, 255, .25), 
+                           rgba(0, 0, 0, .25));
+}
+
+/* progress bar for firefox */
+progress {
+    background: #EEE;
+    box-shadow: 0 2px 3px rgba(0,0,0,0.2) inset;
+    border:none;
+}
+
+progress::-moz-progress-bar {
+    background-color: #3498DB;
+      background-image:
+    -moz-linear-gradient(
+      135deg, 
+      transparent 33%, 
+      rgba(0, 0, 0, 0.1) 33%, 
+      rgba(0, 0, 0, 0.1) 66%, 
+      transparent 66% 
+    ),
+    -moz-linear-gradient(
+      top, 
+      rgba(255, 255, 255, 0.25), 
+      rgba(0, 0, 0, 0.25)
+    );
+}
+
+.progress-bar-value {
+    position: relative;
+    bottom: -2.8em;
+    color: white;
+    margin-left: 50%;
+}
 

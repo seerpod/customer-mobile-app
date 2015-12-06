@@ -207,5 +207,5 @@ seerpodApp.controller('PopularController', function($scope, $http, $stateParams,
  
   };
   
-  $scope.searchStoreDB();
+  $scope.searchStoreDb();
 });

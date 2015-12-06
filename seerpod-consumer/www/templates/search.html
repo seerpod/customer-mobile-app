@@ -1,32 +1,23 @@
-<ion-header-bar class="bar bar-header item-input-inset">
+<ion-header-bar class="bar bar-positive bar-header item-input-inset">
+  <i class="icon ion-funnel placeholder-icon icon-large icon-color" ng-click="openModal()"></i>
+  <span>&nbsp;&nbsp;</span>
   <div class="item-input-wrapper">
-    <button class="button button-clear" ng-click="currentLocation()">
-      <i class="icon ion-navigate placeholder-icon"></i>
-    </button>
+    <i class="icon placeholder-icon ion-navigate icon-large" ng-click="currentLocation()"></i>
     <input id="autocomplete" name="user-address" type="search" autofocus class="form-control"
 placeholder="Enter a street address" ng-model="store.name" />
-    <!--a href='#' ng-click='searchStoreDb()' class="icon ion-ios-search placeholder-icon"></a-->
-    <button class="button button-clear" ng-click="searchStoreDb()">
-      <i class="icon ion-ios-search placeholder-icon"></i>
-    </button>
+    <i class="icon ion-ios-search placeholder-icon icon-large" ng-click="searchStoreDb()"></i>
+    <span>&nbsp;</span>
   </div>
-  <!--button class="button button-clear" ng-click="searchStoreDb()">
-    <i class="icon ion-ios-search placeholder-icon"></i>
-  </button-->
-  <button class="button" ng-click="clearSearchBox()">
-    <i class="icon ion-close-round placeholder-icon"></i>
-  </button>
-  <span></span>
-  <button class="button" ng-click="openModal()">
-    <i class="icon ion-funnel placeholder-icon"></i>
-  </button>
+  <span>&nbsp;&nbsp;&nbsp;</span>
+  <i class="icon ion-close-round placeholder-icon icon-large icon-color" ng-click="clearSearchBox()"></i>
+  <span>&nbsp;&nbsp;</span>
 </ion-header-bar>
 
 <ion-content>
   <ion-list>
     <div class="list">
-      <div class="item item-divider" ng-if="nearbyPopularSearch">
-        <h4>Showing nearby popular restaurants</h4>
+      <div class="item item-divider positive-lighter" ng-if="nearbyPopularSearch">
+        <h4 class="positive-text">Showing nearby popular restaurants</h4>
       </div>
       <a ng-repeat="store in stores" href="#/store/{{store.id}}" class="item item-thumbnail-left">
         <img ng-src="{{store.img}}" onerror="this.src = 'https://www.ginesisnatural.com/images/no_image.jpg';">
