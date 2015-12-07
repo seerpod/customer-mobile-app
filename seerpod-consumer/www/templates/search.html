@@ -20,11 +20,12 @@ placeholder="Enter a street address" ng-model="store.name" />
         <h4 class="positive-text">Showing nearby popular restaurants</h4>
       </div>
       <a ng-repeat="store in stores" href="#/store/{{store.id}}" class="item item-thumbnail-left">
-        <img ng-src="{{store.img}}" onerror="this.src = 'https://www.ginesisnatural.com/images/no_image.jpg';">
+        <img ng-src="{{store.image_url}}" onerror="this.src = 'https://www.ginesisnatural.com/images/no_image.jpg';">
         <h2>{{store.name}}</h2>
-        <h4>{{store.location}}</h4>
-        <h5 class="progress-bar-value" style="margin-left:20px;">{{store.occupancy_percent}}% full</h5>
-        <progress value="{{store.occupancy_percent}}" max="100"></progress>
+        <h4>{{store.street_address}}</h4>
+        <h4>Rating: {{store.rating}}</h4>
+        <h5 class="progress-bar-value" style="margin-left:20px;">{{store.occupancy}}% full</h5>
+        <progress value="{{store.occupancy}}" max="100"></progress>
       </a>
     </div>
   </ion-list>

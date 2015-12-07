@@ -8,13 +8,13 @@
     <div class="item item-avatar">
       <img src="http://files.softicons.com/download/object-icons/movies-icons-by-pinchodesigns/png/32x32/movie.png">
       <h2>{{store.name}}</h2>
-      <p>{{store.location}}</p>
-      <h5 class="progress-bar-value" style="margin-left:20px;">{{store.occupancy_percent}}% full</h5>
-      <progress value="{{store.occupancy_percent}}" max="100"></progress>
+      <p>{{store.street_address}}</p>
+      <h5 class="progress-bar-value" style="margin-left:20px;">{{store.occupancy}}% full</h5>
+      <progress value="{{store.occupancy}}" max="100"></progress>
     </div>
 
     <div class="item item-image">
-      <img ng-src="{{store.img}}" width="200px" />
+      <img ng-src="{{store.image_url}}" width="200px" />
     </div>
 
   </div>

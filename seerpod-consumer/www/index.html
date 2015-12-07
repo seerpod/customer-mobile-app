@@ -18,6 +18,8 @@
    and https://github.com/ccoenraets/ioconf/blob/master/static/js/push.js. Settings page has the setting for push notifications, actually implement the logic to send notifications.
   4. Google Map autocomplete not selecting address on tap in iphone
   5. Change color of navigation icon to green on tap.
+  6. Add timeout to Google current location.
+  7. Cancel and 'showing nearby restaurants' labels don't always behave in sync. Fix it.
 -->
 <html >
   <head>
@@ -26,38 +28,25 @@
   </head>
 
   <body>
-    <html ng-app="seerpod"> 
+    <html ng-app="seerpodc"> 
       <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width" />
         <title>Seerpod</title>
-        <!--link href="index.css" rel="stylesheet"/-->
         <link href="css/ionic.app.css" rel="stylesheet">
         <script src="lib/ionic/js/ionic.bundle.js"></script>
         <!-- google maps javascript -->
         <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyB16sGmIekuGIvYOfNoW9T44377IU2d2Es&libraries=places&sensor=false"></script>
-        <!--script src="app.js"></script-->
       </head>
  
       <body>
-        <ion-tabs class="tabs-positive tabs-icon-top">
-          <ion-tab title="Search" icon="ion-search" ui-sref="search">
-            <ion-nav-view name="search"></ion-nav-view>
-          </ion-tab>
-          <ion-tab title="Nearby Popular" icon="ion-heart" ui-sref="popular">
-            <ion-nav-view name="popular"></ion-nav-view>
-          </ion-tab>
-          <ion-tab title="Settings" icon="ion-gear-a" ui-sref="settings">
-            <ion-nav-view name="settings"></ion-nav-view>
-          </ion-tab>
-        </ion-tabs> 
+        <ion-nav-view name="search"></ion-nav-view>
       </body>
        
     </html>
-      <script src="js/index.js"></script>
+      <script src="js/app.js"></script>
+      <script src="js/services.js"></script>
+      <script src="js/controllers.js"></script>
       <script src="js/util.js"></script>
-      <script src="js/localstorage-service.js"></script>
-      <script src="js/settings-controller.js"></script>
-      <script src="js/settings.js"></script>
   </body>
 </html>
