@@ -5,22 +5,38 @@ seerpodApp.controller('SearchController', function($scope, $http, $ionicModal, $
   $scope.store = {}
   $scope.filterParam = {}
   $scope.nearbyPopularSearch = true;
- 
-  $scope.searchStoreDb = function() {
-    if ($scope.store.name && $scope.store.name != '') {
-      $scope.nearbyPopularSearch = false;
-    } else {
-      $scope.nearbyPopularSearch = true;
-    }
-    storesService.list($scope.store.name, $scope.filterParam, function(stores) {
-      $scope.stores = stores;
+  $scope.usingCurrentLoc = false;
+  var themeColor = "#00b383";
+
+  function getCurrentLatLong (callback) {
+    navigator.geolocation.getCurrentPosition(function(pos) {
+      //TODO: convert lat long to address and set in store.name
+      // OR let it be lat long and make searchStoreDb accept lat long
+      // and pass to seerpod/search api
+      $scope.store.name = parseFloat(pos.coords.latitude);
+      console.log("in getCurrentLatLong lat: " + $scope.store.name);
+      callback(true);
+    }, function(error) {
+      alert('Unable to get current position latitude and longitude: ' + error.message);
     });
   };
 
-  // home page of the app
-  $scope.searchStoreDb();
+  $scope.searchStoreDb = function(nearbyPopularSearch) {
+    console.log("search keyword: " + $scope.store.name);
+    $scope.nearbyPopularSearch = nearbyPopularSearch;
+    storesService.list($scope.store.name, $scope.filterParam, function(stores) {
+      $scope.stores = stores;
+    });
 
-  google.maps.event.addDomListener(window, 'load', initialize);
+    if($scope.usingCurrentLoc) {
+      $scope.usingCurrentLoc = false;
+      document.getElementById("nav-icon").style.color="";
+    }
+  };
+
+  // Home Page
+  getCurrentLatLong($scope.searchStoreDb);
+  
   $scope.currentLocation = function() {
     $scope.loading = $ionicLoading.show({
       content: 'Getting current location...',
@@ -30,11 +46,11 @@ seerpodApp.controller('SearchController', function($scope, $http, $ionicModal, $
     navigator.geolocation.getCurrentPosition(function(pos) {
       var geocoder = new google.maps.Geocoder;
       var latlng = {lat: parseFloat(pos.coords.latitude), lng: parseFloat(pos.coords.longitude)};
-        geocoder.geocode({'location': latlng}, function(results, status) {
+      geocoder.geocode({'location': latlng}, function(results, status) {
         if (status === google.maps.GeocoderStatus.OK) {
           if (results[0]) {
             $scope.currentAddress = results[0].formatted_address;
-            document.getElementById("autocomplete").value = results[0].formatted_address;
+            document.getElementsByName("autocomplete-search")[0].value = results[0].formatted_address;
           } else {
             window.alert('No results found');
             $scope.loading.hide();
@@ -46,6 +62,8 @@ seerpodApp.controller('SearchController', function($scope, $http, $ionicModal, $
       });
 
       $scope.loading.hide();
+      document.getElementById("nav-icon").style.color = themeColor;
+      $scope.usingCurrentLoc = true;
     }, function(error) {
       alert('Unable to get location: ' + error.message);
       $scope.loading.hide();
@@ -53,20 +71,18 @@ seerpodApp.controller('SearchController', function($scope, $http, $ionicModal, $
   };
 
   $scope.clearSearchBox = function() {
-    document.getElementById("autocomplete").value = "";
+    document.getElementsByName("autocomplete-search")[0].value = "";
     $scope.store = {};
     $scope.filterParam = {};
   };
 
   $scope.doRefresh = function() {
-    $http.get('/new-items')
-     .success(function(newItems) {
-       $scope.items = newItems;
-     })
-     .finally(function() {
-       // Stop the ion-refresher from spinning
-       $scope.$broadcast('scroll.refreshComplete');
-     });
+    storesService.list($scope.store.name, $scope.filterParam, function(stores) {
+      $scope.stores = stores;
+
+      //Stop the ion-refresher from spinning
+      $scope.$broadcast('scroll.refreshComplete');
+    });
   };
 
   $ionicModal.fromTemplateUrl('templates/search-filter.html', {

@@ -3,23 +3,23 @@
   1. Place templates in templateCache (http://learn.ionicframework.com/formulas/making-modals/ and http://ionicframework.com/docs/guide/building.html)
   2. Create hierarcy of templates and their URLs (http://learn.ionicframework.com/formulas/navigation-and-routing-part-1/ and http://learn.ionicframework.com/formulas/navigation-and-routing-part-2/). This tutorial also shows how to use the ion-back-button directive to easily add a back button.
   3. Use ionic-back-button directive to add back button as in point 2.
-  4. Re-structure the app by creating controllers.js, services.js, and templates folder or according to the functionality (http://www.johnpapa.net/angular-growth-structure/).
+  4. DONE: Re-structure the app by creating controllers.js, services.js, and templates folder or according to the functionality (http://www.johnpapa.net/angular-growth-structure/).
   5. Back functionality not working in detail.html. Fix it using routing hierarchy.
-  6. Pull to refresh: https://www.airpair.com/ionic-framework/posts/push-notifications-using-ionic-framework
-  7. First page needs to have some pre-existing listings. Determine them (nearby popular?, or just nearby?)
+  6. DONE: Pull to refresh: https://www.airpair.com/ionic-framework/posts/push-notifications-using-ionic-framework
+  7. DONE: First page needs to have some pre-existing listings. Determine them (nearby popular?, or just nearby?)
   8. Implement infinite scroll.
-  9. Make search/currentLocation/filter/cancel icons smaller.
-  10. Had to install gulp and setup sass to make it work. See: http://learn.ionicframework.com/formulas/working-with-sass/
+  9. DONE: Make search/currentLocation/filter/cancel icons smaller.
+  10. DONE: Had to install gulp and setup sass to make it work. See: http://learn.ionicframework.com/formulas/working-with-sass/
 
   TODO:
   1. Connect to Yelp Api and fetch rating info
-  2. Implement the filter modal
-  3. Push notifications: https://www.airpair.com/ionic-framework/posts/push-notifications-using-ionic-framework
-   and https://github.com/ccoenraets/ioconf/blob/master/static/js/push.js. Settings page has the setting for push notifications, actually implement the logic to send notifications.
+  2. Implement the openAt functionality in filter modal
+  3. NOT REQUIRED: Push notifications: https://www.airpair.com/ionic-framework/posts/push-notifications-using-ionic-framework
+   and https://github.com/ccoenraets/ioconf/blob/master/static/js/push.js. One of the versions has settings page and it has the setting for push notifications, actually implement the logic to send notifications.
   4. Google Map autocomplete not selecting address on tap in iphone
   5. Change color of navigation icon to green on tap.
   6. Add timeout to Google current location.
-  7. Cancel and 'showing nearby restaurants' labels don't always behave in sync. Fix it.
+  7. 'Cancel' and 'showing nearby restaurants' labels don't always behave in sync. Fix it.
 -->
 <html >
   <head>
@@ -34,9 +34,10 @@
         <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width" />
         <title>Seerpod</title>
         <link href="css/ionic.app.css" rel="stylesheet">
+        <link href="css/autocomplete.css" rel="stylesheet">
         <script src="lib/ionic/js/ionic.bundle.js"></script>
         <!-- google maps javascript -->
-        <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyB16sGmIekuGIvYOfNoW9T44377IU2d2Es&libraries=places&sensor=false"></script>
+        <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyB16sGmIekuGIvYOfNoW9T44377IU2d2Es&libraries=places,geometry&sensor=false"></script>
       </head>
  
       <body>
@@ -47,6 +48,7 @@
       <script src="js/app.js"></script>
       <script src="js/services.js"></script>
       <script src="js/controllers.js"></script>
-      <script src="js/util.js"></script>
+      <script src="js/autocomplete.js"></script>
+      <script src="js/ion-sticky.js"></script>
   </body>
 </html>

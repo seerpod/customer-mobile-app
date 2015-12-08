@@ -1,4 +1,4 @@
-var seerpodApp = angular.module('seerpodc', ['ionic']);
+var seerpodApp = angular.module('seerpodc', ['ionic', 'ion-sticky', 'google.places']);
 
 seerpodApp.config(function($stateProvider, $urlRouterProvider) {
  

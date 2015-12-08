@@ -1,20 +1,20 @@
 angular.module('seerpodc').factory('storesService', function($http) {
   
   var cachedData;
-  function getData(storename, filterParams, callback) {
-    console.log("getData called");
-    cachedData = dummyData();
-    callback(cachedData);
-  }
-
   // function getData(storename, filterParams, callback) {
-  //   var url = 'http://www.seerpod.com/search?user-address=dummy';
- 
-  //   $http.get(url).success(function(data) {
-  //     cachedData = data.businesses;
-  //     callback(data.businesses);
-  //   });
+  //   console.log("getData called");
+  //   cachedData = dummyData();
+  //   callback(cachedData);
   // }
+
+  function getData(storename, filterParams, callback) {
+    var url = 'http://www.seerpod.com/search?user-address=dummy';
+ 
+    $http.get(url).success(function(data) {
+      cachedData = data.businesses;
+      callback(data.businesses);
+    });
+  }
 
   return {
     list: getData,

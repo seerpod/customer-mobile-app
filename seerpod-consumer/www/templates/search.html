@@ -2,9 +2,8 @@
   <i class="icon ion-funnel placeholder-icon icon-large icon-color" ng-click="openModal()"></i>
   <span>&nbsp;&nbsp;</span>
   <div class="item-input-wrapper">
-    <i class="icon placeholder-icon ion-navigate icon-large" ng-click="currentLocation()"></i>
-    <input id="autocomplete" name="user-address" type="search" autofocus class="form-control"
-placeholder="Enter a street address" ng-model="store.name" />
+    <i id="nav-icon" class="icon placeholder-icon ion-navigate icon-large" ng-click="currentLocation()"></i>
+    <input name="autocomplete-search" placeholder="Enter a street address" type="search" g-places-autocomplete ng-model="store.name" />
     <i class="icon ion-ios-search placeholder-icon icon-large" ng-click="searchStoreDb()"></i>
     <span>&nbsp;</span>
   </div>
@@ -13,7 +12,8 @@ placeholder="Enter a street address" ng-model="store.name" />
   <span>&nbsp;&nbsp;</span>
 </ion-header-bar>
 
-<ion-content>
+<ion-content ion-sticky>
+  <ion-refresher pulling-text="Refreshing" on-refresh="doRefresh()"></ion-refresher>
   <ion-list>
     <div class="list">
       <div class="item item-divider positive-lighter" ng-if="nearbyPopularSearch">

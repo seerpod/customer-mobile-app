@@ -9098,13 +9098,7 @@ a.button {
 .icon-large::before {
   font-size: large; }
 
-.icon-large::after {
-  font-size: large; }
-
 .icon-small::before {
-  font-size: small; }
-
-.icon-small::after {
   font-size: small; }
 
 .icon-color {
@@ -9149,5 +9143,5 @@ progress::-moz-progress-bar {
 .progress-bar-value {
   position: relative;
   bottom: -2.8em;
-  color: white;
+  color: #003300;
   margin-left: 50%; }
